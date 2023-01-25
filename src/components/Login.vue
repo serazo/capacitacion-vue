@@ -6,7 +6,7 @@
           <div class="card bg-white">
             <div class="card-body p-5">
               <form class="mb-3 mt-md-4">
-                <h2 class="fw-bold mb-2 text-uppercase ">Brand</h2>
+                <h2 class="fw-bold mb-2 text-uppercase ">Bienvenido</h2>
                 <p class=" mb-5">Please enter your login and password!</p>
                 <div class="mb-3">
                   <label for="email" class="form-label ">Email address</label>
@@ -33,23 +33,4 @@
     </div>
   </div>
 </template>
-<script setup>
-import { ref, computed } from 'vue'
-import { useStore } from 'vuex';
-
-const store = useStore();
-const input = ref('valor inicial');
-const msg = computed( () => store.state.mensaje);
-
-function cambiar(){
-  store.commit('setMensaje', input);
-}
-
-
-const count = ref(0)
-</script>
-<style scoped>
-.read-the-docs {
-  color: #888;
-}
-</style>
+<script setup></script>
