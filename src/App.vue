@@ -1,5 +1,5 @@
 <template>
-  <Header></Header>
+  <Header msj="Esto va aqui"></Header>
   <RouterView/>
 </template>
 <script setup>

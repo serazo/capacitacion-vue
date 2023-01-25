@@ -4,6 +4,8 @@ import Login from '../components/Login.vue';
 
 const Tabla = () => import('../views/Tabla.vue');
 
+import store from '../store';
+
 const routes = [
   {
     path: '/',
@@ -13,6 +15,9 @@ const routes = [
     path: '/dashboard',
     name: 'dashboard',
     component: Dashboard,
+    meta: {
+      requiereAuth: true,
+    },
     children: [
       {
         path: '/dashboard/tabla',
@@ -26,12 +31,25 @@ const routes = [
     path: '/login',
     name: 'login',
     component: Login,
+    meta: {
+      invitado: true,
+    }
   },
 ]
 
 const router = createRouter({
   history: createWebHistory(),
   routes
+});
+
+router.beforeEach((to, from, next) => {
+  if(to.meta.requiereAuth && !store.state.user.token){
+    next({name: 'login'})
+  }else if(store.state.user.token && to.meta.invitado){
+    next({name: 'dashboard'})
+  }else{
+    next();
+  }
 });
 
 export default router;
