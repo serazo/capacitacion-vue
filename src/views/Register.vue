@@ -6,24 +6,27 @@
           <div class="card bg-white">
             <div class="card-body p-5">
               <form class="mb-3 mt-md-4">
-                <h2 class="fw-bold mb-2 text-uppercase ">Bienvenido</h2>
+                <h2 class="fw-bold mb-2 text-uppercase ">Registro</h2>
+                <div class="mb-3">
+                  <label for="name" class="form-label ">Nombre</label>
+                  <input type="text" class="form-control" id="name" placeholder="Nombre y Apellido" v-model="registro.name">
+                </div>
                 <div class="mb-3">
                   <label for="email" class="form-label ">Email</label>
-                  <input type="email" class="form-control" id="email" placeholder="name@example.com" v-model="user.username">
+                  <input type="email" class="form-control" id="email" placeholder="correo@dominio.com" v-model="registro.email">
                 </div>
                 <div class="mb-3">
                   <label for="password" class="form-label ">Password</label>
-                  <input type="password" class="form-control" id="password" placeholder="*******"  v-model="user.password" @keyup.enter="login()">
+                  <input type="password" class="form-control" id="password" placeholder="*******"  v-model="registro.password">
+                </div>
+                <div class="mb-3">
+                  <label for="password_confirmation" class="form-label ">Confirmar Password</label>
+                  <input type="password" class="form-control" id="password_confirmation" placeholder="*******"  v-model="registro.password_confirmation" @keyup.enter="register()">
                 </div>
                 <div class="d-grid">
-                  <button class="btn btn-outline-dark" type="button" @click="login()">Login</button>
+                  <button class="btn btn-outline-dark" type="button" @click="register()">Registro</button>
                 </div>
               </form>
-              <div>
-                <p class="mb-0  text-center">No tienes una cuenta? 
-                  <router-link class="text-primary fw-bold" :to="{ name: 'register' }"> Regístrate</router-link>
-                </p>
-              </div>
             </div>
           </div>
         </div>
@@ -47,23 +50,26 @@ let toast = Swal.mixin({
   },
 });
 
+
 const store = useStore();
 const router = useRouter();
 
-const user = reactive({
-  username: null, 
+const registro = reactive({
+  name: null,
+  email: null,
   password: null,
+  password_confirmation: null,
+  perfil_id: 1,
 })
 
-function login(){
-  store.dispatch('login', user).then( () => {
+function register(){
+  store.dispatch('register', registro).then( ( res ) => {
+    toast.fire("BIenvenido!", res.data.message, "success");
     router.push({
-      name: 'dashboard',
+      name: 'login',
     });
   }).catch( err => {
     toast.fire("Error", err.response.data.message, "error");
   })
 }
-
-
 </script>

@@ -3,6 +3,7 @@ import Dashboard from '../components/Dashboard.vue';
 import Login from '../components/Login.vue';
 
 const Tabla = () => import('../views/Tabla.vue');
+const Register = () => import('../views/Register.vue');
 
 import store from '../store';
 
@@ -31,6 +32,14 @@ const routes = [
     path: '/login',
     name: 'login',
     component: Login,
+    meta: {
+      invitado: true,
+    }
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: Register,
     meta: {
       invitado: true,
     }
